@@ -233,16 +233,24 @@ export function CertificatesSection() {
 
         {/* Preview Dialog */}
         <Dialog open={!!previewCert} onOpenChange={() => setPreviewCert(null)}>
-          <DialogContent className="max-w-3xl">
-            <DialogHeader>
-              <DialogTitle>{previewCert?.name}</DialogTitle>
+          <DialogContent className="max-w-[95vw] w-full h-[95vh] max-h-[100dvh] flex flex-col p-4 sm:p-6">
+            <DialogHeader className="flex flex-row items-center justify-between space-y-0 pr-8">
+              <DialogTitle className="text-xl md:text-2xl truncate">{previewCert?.name}</DialogTitle>
+              {previewCert && (
+                <Button size="sm" asChild>
+                  <a href={previewCert.imageUrl} download={previewCert.name}>
+                    <Download className="w-4 h-4 md:mr-2" />
+                    <span className="hidden md:inline">Unduh PDF/Gambar</span>
+                  </a>
+                </Button>
+              )}
             </DialogHeader>
             {previewCert?.imageUrl && (
-              <div className="relative aspect-[4/3] w-full">
+              <div className="relative flex-1 w-full min-h-0 bg-muted/20 rounded-lg overflow-hidden border border-border mt-2">
                 {previewCert.fileType === "application/pdf" ? (
                   <iframe
-                    src={`${previewCert.imageUrl}#toolbar=0`}
-                    className="w-full h-full rounded-lg border-2 border-border"
+                    src={previewCert.imageUrl}
+                    className="w-full h-full border-0"
                     title={previewCert.name}
                   />
                 ) : (
@@ -250,7 +258,7 @@ export function CertificatesSection() {
                     src={previewCert.imageUrl}
                     alt={previewCert.name}
                     fill
-                    className="object-contain rounded-lg"
+                    className="object-contain"
                   />
                 )}
               </div>
