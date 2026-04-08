@@ -22,7 +22,7 @@ export function HeroSection() {
               MAHASISWA INFORMATIKA
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-balance">
-              Nama Anda
+              Rizki Agustianto
             </h1>
             <p className="text-xl text-muted-foreground">
               Aspiring Software Developer

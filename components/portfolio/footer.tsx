@@ -22,7 +22,7 @@ export function Footer() {
             href="#"
             className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            Nama Anda
+            Rizki Agustianto
           </Link>
 
           {/* Social Links */}
@@ -47,7 +47,7 @@ export function Footer() {
           {/* Copyright */}
           <p className="text-sm text-muted-foreground flex items-center gap-1">
             &copy; {currentYear} Made with{" "}
-            <Heart className="w-4 h-4 text-red-500 animate-pulse" /> by Nama Anda
+            <Heart className="w-4 h-4 text-red-500 animate-pulse" /> by Rizki Agustianto
           </p>
         </div>
       </div>

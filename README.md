@@ -2,6 +2,47 @@
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
 
+## Deploy to Vercel via GitHub
+
+Use this flow so every push to GitHub deploys automatically on Vercel.
+
+1. Create a GitHub repository (empty repository is recommended).
+2. Initialize git in this folder and push to GitHub:
+
+```bash
+git init
+git branch -M main
+git add .
+git commit -m "Initial portfolio setup"
+git remote add origin https://github.com/<your-username>/<your-repo>.git
+git push -u origin main
+```
+
+3. Open [Vercel Dashboard](https://vercel.com/dashboard) -> **Add New...** -> **Project**.
+4. Import the same GitHub repository.
+5. Keep defaults (Framework: **Next.js**) and click **Deploy**.
+
+After that, updates are automatic:
+
+1. Make changes locally.
+2. Commit and push:
+
+```bash
+git add .
+git commit -m "Update portfolio content"
+git push
+```
+
+3. Vercel will build and deploy automatically from GitHub.
+
+### Environment Variables (if needed)
+
+If you add environment variables later:
+
+1. Add them in Vercel -> Project Settings -> Environment Variables.
+2. Add matching keys in local `.env.local` for development.
+3. Redeploy from Vercel Deployments tab if required.
+
 ## Built with v0
 
 This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
