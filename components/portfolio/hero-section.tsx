@@ -80,7 +80,7 @@ export function HeroSection() {
           {/* Social Links */}
           <div className="flex items-center gap-4 pt-6 opacity-0 animate-fade-in-left animation-delay-400">
             <Link
-              href="https://github.com/Napppz/v0-portfolio-website"
+              href="https://github.com/Napppz"
               target="_blank"
               className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
               aria-label="GitHub"
