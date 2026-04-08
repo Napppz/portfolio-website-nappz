@@ -17,6 +17,7 @@ interface Certificate {
   issuer: string;
   date: string;
   imageUrl: string;
+  fileType: string;
 }
 
 export function CertificatesSection() {
@@ -29,6 +30,7 @@ export function CertificatesSection() {
       issuer: "Coursera",
       date: "2024",
       imageUrl: "",
+      fileType: "image/jpeg",
     },
   ]);
   const [isUploading, setIsUploading] = useState(false);
@@ -97,6 +99,7 @@ export function CertificatesSection() {
         issuer: "Issuer",
         date: new Date().getFullYear().toString(),
         imageUrl,
+        fileType: file.type,
       };
 
       setCertificates((prev) => [...prev, newCert]);
@@ -236,12 +239,20 @@ export function CertificatesSection() {
             </DialogHeader>
             {previewCert?.imageUrl && (
               <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src={previewCert.imageUrl}
-                  alt={previewCert.name}
-                  fill
-                  className="object-contain rounded-lg"
-                />
+                {previewCert.fileType === "application/pdf" ? (
+                  <iframe
+                    src={`${previewCert.imageUrl}#toolbar=0`}
+                    className="w-full h-full rounded-lg border-2 border-border"
+                    title={previewCert.name}
+                  />
+                ) : (
+                  <Image
+                    src={previewCert.imageUrl}
+                    alt={previewCert.name}
+                    fill
+                    className="object-contain rounded-lg"
+                  />
+                )}
               </div>
             )}
           </DialogContent>
