@@ -88,60 +88,74 @@ export function CertificatesSection() {
       <div className="max-w-4xl mx-auto relative z-10">
         <div className={`mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <p className="text-primary font-mono text-sm tracking-wider mb-2">
-            SERTIFIKAT
+            PENCAPAIAN
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Sertifikat & Pencapaian
+            Achievement Timeline
           </h2>
         </div>
 
-        {/* Certificates Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Timeline Container */}
+        <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
           {certificates.map((cert, index) => (
             <div
               key={cert.id}
-              className={`group relative p-6 bg-card border border-border rounded-xl hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1 ${
+              className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
-              style={{ transitionDelay: `${(index + 2) * 100}ms` }}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-xl">
-                  <Award className="w-6 h-6 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-foreground truncate group-hover:text-primary transition-colors">
-                    {cert.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-                  <p className="text-sm text-muted-foreground">{cert.date}</p>
-                </div>
+              {/* Timeline dot */}
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-background bg-primary shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(var(--primary),0.5)]">
+                <Award className="w-4 h-4 text-primary-foreground" />
               </div>
 
-              {cert.imageUrl && (
-                <div className="mt-4 flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPreviewCert(cert)}
-                    className="flex-1 hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-colors"
-                  >
-                    <Eye className="w-4 h-4 mr-2" />
-                    Lihat
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="flex-1 hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-colors"
-                  >
-                    <a href={cert.imageUrl} download={cert.name}>
-                      <Download className="w-4 h-4 mr-2" />
-                      Unduh
-                    </a>
-                  </Button>
+              {/* Content Card */}
+              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 bg-card border border-border rounded-xl shadow-sm hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group-hover:-translate-y-1 relative">
+                
+                {/* Arrow indicator (desktop) */}
+                <div className="hidden md:block absolute top-5 w-4 h-4 bg-card border-border border-b border-l rotate-45 -right-2 group-odd:-left-2 group-odd:border-l-0 group-odd:border-r group-even:border-b-0 group-even:border-t group-even:rotate-45" />
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-xs font-mono font-medium px-2.5 py-1 bg-primary/10 text-primary rounded-full">
+                      {cert.date}
+                    </span>
+                    <span className="text-sm text-muted-foreground font-medium truncate">
+                      {cert.issuer}
+                    </span>
+                  </div>
+                  
+                  <h3 className="font-bold text-lg text-foreground mt-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {cert.name}
+                  </h3>
+
+                  {cert.imageUrl && (
+                    <div className="mt-4 flex gap-3 pt-4 border-t border-border/50">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setPreviewCert(cert)}
+                        className="flex-1 bg-primary/5 hover:bg-primary/10 hover:text-primary transition-colors"
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        Lihat
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="flex-1 bg-accent/5 hover:bg-accent/10 hover:text-accent-foreground transition-colors"
+                      >
+                        <a href={cert.imageUrl} download={cert.name}>
+                          <Download className="w-4 h-4 mr-2" />
+                          Unduh
+                        </a>
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
