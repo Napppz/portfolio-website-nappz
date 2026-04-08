@@ -129,20 +129,6 @@ export function HeroSection() {
                 priority
               />
             </div>
-            
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground shadow-lg animate-float">
-              Python
-            </div>
-            <div className="absolute top-1/4 -left-12 px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground shadow-lg animate-float animation-delay-200">
-              Java
-            </div>
-            <div className="absolute bottom-1/4 -right-10 px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground shadow-lg animate-float animation-delay-400">
-              JavaScript
-            </div>
-            <div className="absolute -bottom-4 left-8 px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground shadow-lg animate-float animation-delay-600">
-              HTML/CSS
-            </div>
           </div>
         </div>
       </div>
