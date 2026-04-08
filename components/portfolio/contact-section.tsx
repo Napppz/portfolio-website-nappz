@@ -77,8 +77,8 @@ export function ContactSection() {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className={`mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <p className="text-primary font-mono text-sm tracking-wider mb-2">
+        <div className={`mb-12 text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <p className="font-mono text-lg md:text-xl tracking-widest text-[#00f0ff] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] mb-2 uppercase">
             KONTAK
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">

@@ -16,9 +16,9 @@ export function HeroSection() {
 
       <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Side - Info */}
-        <div className="space-y-6">
+        <div className="space-y-6 text-center lg:text-left">
           <div className="space-y-2 opacity-0 animate-fade-in-left">
-            <p className="text-primary font-mono text-sm tracking-wider">
+            <p className="font-mono text-lg md:text-xl tracking-widest text-[#00f0ff] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] mb-2 uppercase">
               MAHASISWA INFORMATIKA
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-balance">
