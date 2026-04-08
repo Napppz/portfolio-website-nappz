@@ -67,19 +67,34 @@ export function AboutSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <p className={`text-muted-foreground leading-relaxed transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-              Saya adalah seorang mahasiswa Informatika yang memiliki passion
-              dalam dunia teknologi dan pengembangan software. Selama masa
-              perkuliahan, saya telah mengembangkan berbagai keahlian dalam
-              bahasa pemrograman dan framework modern.
-            </p>
-            <p className={`text-muted-foreground leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-              Saya percaya bahwa teknologi dapat memberikan solusi untuk berbagai
-              permasalahan di dunia nyata. Oleh karena itu, saya selalu berusaha
-              untuk terus belajar dan mengembangkan kemampuan saya dalam bidang
-              software development.
-            </p>
+          <div className="space-y-8">
+            {/* Visi */}
+            <div className={`space-y-3 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+              <h3 className="text-xl font-bold text-foreground flex items-center gap-2 font-mono">
+                <span className="text-[#00f0ff] drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]">&gt;</span> VISI
+              </h3>
+              <p className="text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-4 italic">
+                "Menerjemahkan imajinasi menjadi baris kode yang bernyawa; menciptakan ekosistem digital yang modern, efisien, dan bermakna bagi masa depan."
+              </p>
+            </div>
+
+            {/* Misi */}
+            <div className={`space-y-3 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+              <h3 className="text-xl font-bold text-foreground flex items-center gap-2 font-mono">
+                <span className="text-[#00f0ff] drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]">&gt;</span> MISI
+              </h3>
+              <ul className="text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-4 space-y-3">
+                <li className="relative pl-5 before:content-['//'] before:absolute before:left-0 before:text-primary before:font-mono">
+                  Menyeimbangkan fungsionalitas murni dengan antarmuka yang indah (UI/UX) untuk pengalaman pengguna terbaik.
+                </li>
+                <li className="relative pl-5 before:content-['//'] before:absolute before:left-0 before:text-primary before:font-mono">
+                  Berkomitmen pada eksplorasi dan pembelajaran tanpa henti (Long-life learning) di tengah evolusi pesat teknologi Web.
+                </li>
+                <li className="relative pl-5 before:content-['//'] before:absolute before:left-0 before:text-primary before:font-mono">
+                  Membangun arsitektur kode yang bersih (Clean Code), adaptif, dan siap menjadi solusi dari permasalahan nyata.
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
