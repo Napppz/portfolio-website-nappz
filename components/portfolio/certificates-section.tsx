@@ -249,7 +249,7 @@ export function CertificatesSection() {
             </DialogHeader>
             {previewCert?.imageUrl && (
               <div 
-                className={`relative flex-1 w-full min-h-0 bg-black/40 rounded-lg overflow-hidden border border-white/10 mt-2 shadow-inner flex items-center justify-center ${zoomLevel > 1 ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
+                className={`relative flex-1 w-full min-h-0 bg-black/40 rounded-lg overflow-auto border border-white/10 mt-2 shadow-inner flex items-center justify-center ${zoomLevel > 1 ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
                 onMouseMove={handleMouseMove}
                 onTouchMove={handleTouchMove}
                 onMouseLeave={() => setPanOrigin("center")}
@@ -279,7 +279,7 @@ export function CertificatesSection() {
                     blobUrl ? (
                       <iframe
                         src={blobUrl}
-                        className="w-[90vw] md:w-[80vw] lg:w-[70vw] h-[80vh] border-0 rounded-lg shadow-2xl pointer-events-none group"
+                        className="w-full md:w-[80vw] lg:w-[70vw] min-h-[80vh] lg:h-[80vh] border-0 rounded-lg shadow-2xl pointer-events-auto md:pointer-events-none"
                         title={previewCert.name}
                       />
                     ) : (
