@@ -112,8 +112,8 @@ export function ContactSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
-            {/* Web3Forms Access Key - GANTI VALUE INI DENGAN KEY DARI EMAIL ANDA */}
-            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+            {/* Web3Forms Access Key - Berhasil Diisi oleh Antigravity */}
+            <input type="hidden" name="access_key" value="53efe952-9551-4ef6-89b9-98331e10934a" />
             
             <input type="hidden" name="subject" value="🌟 Pesan Baru dari Website Portofolio Rizky!" />
             <input type="hidden" name="from_name" value="Notifikasi Portofolio" />
