@@ -34,16 +34,10 @@ export function LoadingScreen() {
         
         {/* Loading Spinner berputar */}
         <div className="absolute inset-0 rounded-full border-[3px] border-primary border-t-transparent animate-spin"></div>
-        
-        {/* Inisial Nama di Tengah */}
-        <div className="absolute inset-0 flex items-center justify-center text-primary font-bold font-mono text-xl animate-pulse">
-          RA
-        </div>
       </div>
 
-      {/* Teks Loading */}
+      {/* Loading animation container */}
       <div className="flex flex-col items-center gap-2">
-        <h2 className="text-2xl font-bold tracking-[0.3em] text-foreground font-mono">RIZKI</h2>
         
         {/* Animasi Titik 3 Melompat */}
         <div className="flex gap-1.5 mt-2">
