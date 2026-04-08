@@ -3,8 +3,26 @@
 import { Github, Linkedin, Mail, Instagram, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export function HeroSection() {
+  const [displayText, setDisplayText] = useState("");
+  const fullName = "Rizki Agustianto";
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullName.length) {
+        setDisplayText(fullName.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150); // Kecepatan mengetik dalam ms
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
   return (
     <section className="min-h-screen flex flex-col justify-center px-6 lg:px-12 relative overflow-hidden">
       {/* Animated Background Elements */}
@@ -17,12 +35,13 @@ export function HeroSection() {
       <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Side - Info */}
         <div className="space-y-6 text-center lg:text-left">
-          <div className="space-y-2 opacity-0 animate-fade-in-left">
+          <div className="space-y-4 opacity-0 animate-fade-in-left">
             <p className="font-mono text-2xl md:text-3xl font-bold tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] mb-2 uppercase">
               MAHASISWA INFORMATIKA
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-balance">
-              Rizki Agustianto
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-balance flex justify-center lg:justify-start items-center">
+              <span>{displayText}</span>
+              <span className="w-[3px] h-[40px] md:h-[60px] bg-primary ml-1 animate-pulse"></span>
             </h1>
             <p className="text-xl text-muted-foreground">
               Aspiring Software Developer
