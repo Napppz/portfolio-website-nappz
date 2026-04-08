@@ -105,7 +105,7 @@ export function HeroSection() {
               <Instagram className="w-5 h-5" />
             </Link>
             <Link
-              href="mailto:rizkytyan15@gmail.com"
+              href="#contact"
               className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
               aria-label="Email"
             >
