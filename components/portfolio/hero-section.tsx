@@ -70,11 +70,12 @@ export function HeroSection() {
           </div>
 
           <p className="text-muted-foreground leading-relaxed max-w-lg opacity-0 animate-fade-in-left animation-delay-200">
-            Saya adalah mahasiswa Informatika yang memiliki ketertarikan kuat dalam merancang dan membangun ekosistem perangkat lunak mutakhir. Fokus keahlian saya mencakup teknologi{" "}
-            <span className="text-primary font-medium">Web Development</span>,{" "}
-            <span className="text-primary font-medium">Golang</span>,{" "}
-            <span className="text-primary font-medium">Python</span>, serta eksplorasi di bidang{" "}
-            <span className="text-primary font-medium">Machine Learning</span>.
+            Saya adalah mahasiswa Informatika yang passionate dalam membangun
+            aplikasi web dan software. Fokus pada pengembangan dengan{" "}
+            <span className="text-primary font-medium">Python</span>,{" "}
+            <span className="text-primary font-medium">Java</span>,{" "}
+            <span className="text-primary font-medium">JavaScript</span>, dan{" "}
+            <span className="text-primary font-medium">Web Development</span>.
           </p>
 
           {/* Social Links */}
