@@ -35,8 +35,7 @@ export function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
-    };
-  }, []);
+
 
   const contactInfo = [
     {
