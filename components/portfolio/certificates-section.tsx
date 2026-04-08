@@ -88,73 +88,68 @@ export function CertificatesSection() {
       <div className="max-w-4xl mx-auto relative z-10">
         <div className={`mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <p className="text-primary font-mono text-sm tracking-wider mb-2">
-            PENCAPAIAN
+            SERTIFIKAT
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Achievement Timeline
+            Pencapaian & Sertifikat
           </h2>
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
+        {/* Certificates Grid (Like Projects Section) */}
+        <div className="grid gap-6">
           {certificates.map((cert, index) => (
             <div
               key={cert.id}
-              className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group transition-all duration-700 ${
+              className={`group p-6 bg-card border border-border rounded-xl hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              {/* Timeline dot */}
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-background bg-primary shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(var(--primary),0.5)]">
-                <Award className="w-4 h-4 text-primary-foreground" />
-              </div>
-
-              {/* Content Card */}
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-6 bg-card border border-border rounded-xl shadow-sm hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group-hover:-translate-y-1 relative">
-                
-                {/* Arrow indicator (desktop) */}
-                <div className="hidden md:block absolute top-5 w-4 h-4 bg-card border-border border-b border-l rotate-45 -right-2 group-odd:-left-2 group-odd:border-l-0 group-odd:border-r group-even:border-b-0 group-even:border-t group-even:rotate-45" />
-
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-xs font-mono font-medium px-2.5 py-1 bg-primary/10 text-primary rounded-full">
-                      {cert.date}
-                    </span>
-                    <span className="text-sm text-muted-foreground font-medium truncate">
-                      {cert.issuer}
-                    </span>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Award className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {cert.name}
+                    </h3>
                   </div>
                   
-                  <h3 className="font-bold text-lg text-foreground mt-2 group-hover:text-primary transition-colors line-clamp-2">
-                    {cert.name}
-                  </h3>
-
-                  {cert.imageUrl && (
-                    <div className="mt-4 flex gap-3 pt-4 border-t border-border/50">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setPreviewCert(cert)}
-                        className="flex-1 bg-primary/5 hover:bg-primary/10 hover:text-primary transition-colors"
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Lihat
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        asChild
-                        className="flex-1 bg-accent/5 hover:bg-accent/10 hover:text-accent-foreground transition-colors"
-                      >
-                        <a href={cert.imageUrl} download={cert.name}>
-                          <Download className="w-4 h-4 mr-2" />
-                          Unduh
-                        </a>
-                      </Button>
-                    </div>
-                  )}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <span className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20 hover:bg-primary/20 transition-colors">
+                      {cert.issuer}
+                    </span>
+                    <span className="px-3 py-1 bg-secondary text-muted-foreground text-sm rounded-full border border-border">
+                      {cert.date}
+                    </span>
+                  </div>
                 </div>
+
+                {cert.imageUrl && (
+                  <div className="flex items-center justify-end gap-3 mt-2 md:mt-0 w-full md:w-auto border-t md:border-t-0 border-border/50 pt-4 md:pt-0">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPreviewCert(cert)}
+                      className="flex-1 md:flex-none hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-colors"
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      Lihat
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="flex-1 md:flex-none hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-colors"
+                    >
+                      <a href={cert.imageUrl} download={cert.name}>
+                        <Download className="w-4 h-4 mr-2" />
+                        Unduh
+                      </a>
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           ))}
