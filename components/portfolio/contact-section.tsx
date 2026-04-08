@@ -52,7 +52,7 @@ export function ContactSection() {
     {
       icon: Mail,
       label: "Email",
-      value: "email@rizkytyan15@gmail.com",
+      value: "@rizkytyan15@gmail.com",
     },
     {
       icon: Phone,
