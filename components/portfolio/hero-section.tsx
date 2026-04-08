@@ -38,45 +38,6 @@ export function HeroSection() {
             <span className="text-primary font-medium">Web Development</span>.
           </p>
 
-          {/* Navigation Links */}
-          <nav className="flex flex-col gap-3 pt-4 opacity-0 animate-fade-in-left animation-delay-300">
-            <Link
-              href="#about"
-              className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300"
-            >
-              <span className="w-8 h-px bg-muted-foreground group-hover:w-16 group-hover:bg-primary transition-all duration-300" />
-              <span className="text-sm font-medium tracking-wide">TENTANG</span>
-            </Link>
-            <Link
-              href="#skills"
-              className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300"
-            >
-              <span className="w-8 h-px bg-muted-foreground group-hover:w-16 group-hover:bg-primary transition-all duration-300" />
-              <span className="text-sm font-medium tracking-wide">KEAHLIAN</span>
-            </Link>
-            <Link
-              href="#projects"
-              className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300"
-            >
-              <span className="w-8 h-px bg-muted-foreground group-hover:w-16 group-hover:bg-primary transition-all duration-300" />
-              <span className="text-sm font-medium tracking-wide">PROYEK</span>
-            </Link>
-            <Link
-              href="#certificates"
-              className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300"
-            >
-              <span className="w-8 h-px bg-muted-foreground group-hover:w-16 group-hover:bg-primary transition-all duration-300" />
-              <span className="text-sm font-medium tracking-wide">SERTIFIKAT</span>
-            </Link>
-            <Link
-              href="#contact"
-              className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300"
-            >
-              <span className="w-8 h-px bg-muted-foreground group-hover:w-16 group-hover:bg-primary transition-all duration-300" />
-              <span className="text-sm font-medium tracking-wide">KONTAK</span>
-            </Link>
-          </nav>
-
           {/* Social Links */}
           <div className="flex items-center gap-4 pt-6 opacity-0 animate-fade-in-left animation-delay-400">
             <Link
