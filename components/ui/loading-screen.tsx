@@ -37,13 +37,17 @@ export function LoadingScreen() {
       </div>
 
       {/* Loading animation container */}
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-4 mt-2">
+        {/* Tulisan LOADING bersinar */}
+        <div className="font-mono text-xl md:text-2xl font-bold tracking-[0.4em] text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] animate-pulse pl-2">
+          LOADING
+        </div>
         
         {/* Animasi Titik 3 Melompat */}
-        <div className="flex gap-1.5 mt-2">
-          <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "0ms" }}></span>
-          <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "150ms" }}></span>
-          <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "300ms" }}></span>
+        <div className="flex gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-bounce drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]" style={{ animationDelay: "0ms" }}></span>
+          <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-bounce drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]" style={{ animationDelay: "150ms" }}></span>
+          <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-bounce drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]" style={{ animationDelay: "300ms" }}></span>
         </div>
       </div>
     </div>

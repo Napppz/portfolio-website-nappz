@@ -1,29 +1,9 @@
 "use client";
 
 import { GraduationCap, Code2, Briefcase, Heart } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 export function AboutSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const cards = [
     {
       icon: GraduationCap,
@@ -48,38 +28,52 @@ export function AboutSection() {
   ];
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="py-20 px-6 lg:px-12 bg-card/30 relative overflow-hidden"
-    >
+    <section id="about" className="py-20 px-6 lg:px-12 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className={`mb-12 text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-100px" }}
+           transition={{ duration: 0.6, ease: "easeOut" }}
+           className="mb-12 text-center"
+        >
           <p className="font-mono text-2xl md:text-3xl font-bold tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] mb-2 uppercase">
             TENTANG SAYA
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4">
             Mengenal Lebih Dekat
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-8">
             {/* Visi */}
-            <div className={`space-y-3 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+              className="space-y-3"
+            >
               <h3 className="text-xl font-bold text-foreground flex items-center gap-2 font-mono">
                 <span className="text-[#00f0ff] drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]">&gt;</span> VISI
               </h3>
               <p className="text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-4 italic">
                 "Menerjemahkan imajinasi menjadi baris kode yang bernyawa; menciptakan ekosistem digital yang modern, efisien, dan bermakna bagi masa depan."
               </p>
-            </div>
+            </motion.div>
 
             {/* Misi */}
-            <div className={`space-y-3 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+            <motion.div
+               initial={{ opacity: 0, x: -30 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true, margin: "-50px" }}
+               transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+               className="space-y-3"
+            >
               <h3 className="text-xl font-bold text-foreground flex items-center gap-2 font-mono">
                 <span className="text-[#00f0ff] drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]">&gt;</span> MISI
               </h3>
@@ -94,24 +88,24 @@ export function AboutSection() {
                   Membangun arsitektur kode yang bersih (Clean Code), adaptif, dan siap menjadi solusi dari permasalahan nyata.
                 </li>
               </ul>
-            </div>
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {cards.map((card, index) => (
-              <div
+              <motion.div
                 key={card.title}
-                className={`p-4 bg-card border border-border rounded-xl hover:border-primary/50 hover:scale-105 transition-all duration-500 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{ transitionDelay: `${(index + 2) * 100}ms` }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: 0.3 + index * 0.1, ease: "easeOut" }}
+                whileHover={{ scale: 1.05, y: -4, transition: { type: "spring", stiffness: 400, damping: 25 } }}
+                className="p-4 bg-white/5 border border-white/10 backdrop-blur-md rounded-xl hover:border-primary/50 hover:bg-white/10 cursor-pointer shadow-lg transition-colors duration-200"
               >
                 <card.icon className="w-8 h-8 text-primary mb-3" />
                 <h3 className="font-semibold text-foreground mb-1">{card.title}</h3>
                 <p className="text-sm text-muted-foreground">{card.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

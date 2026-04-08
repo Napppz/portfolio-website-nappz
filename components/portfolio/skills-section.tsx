@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const skills = [
   {
@@ -61,60 +60,66 @@ const skills = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
 export function SkillsSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="skills" ref={sectionRef} className="py-20 px-6 lg:px-12 relative overflow-hidden">
+    <section id="skills" className="py-20 px-6 lg:px-12 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className={`mb-12 text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-100px" }}
+           transition={{ duration: 0.6, ease: "easeOut" }}
+           className="mb-12 text-center"
+        >
           <p className="font-mono text-2xl md:text-3xl font-bold tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] mb-2 uppercase">
             KEAHLIAN
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4">
             Bahasa Pemrograman
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-          {skills.map((skill, index) => (
-            <div
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {skills.map((skill) => (
+            <motion.div
               key={skill.name}
-              className={`group relative p-4 md:p-6 bg-card border border-border rounded-2xl hover:border-primary/50 hover:shadow-lg transition-all duration-500 flex flex-col items-center text-center gap-4 hover:-translate-y-2 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              variants={itemVariants}
+              whileHover={{ scale: 1.05, y: -4, transition: { type: "spring", stiffness: 400, damping: 25 } }}
+              className="group relative p-4 md:p-6 bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl hover:border-primary/50 transition-colors duration-200 flex flex-col items-center text-center gap-4 shadow-lg cursor-pointer"
             >
               {/* Background gradient glow on hover */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none`} />
               
-              <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center p-3 bg-secondary/50 rounded-xl group-hover:scale-110 transition-transform duration-500">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center p-3 bg-white/5 rounded-xl border border-white/5 shadow-inner">
                 <Image
                   src={skill.icon}
                   alt={`${skill.name} icon`}
                   fill
-                  className="object-contain p-2"
+                  className="object-contain p-2 drop-shadow-md group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
 
@@ -126,9 +131,9 @@ export function SkillsSection() {
                   {skill.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

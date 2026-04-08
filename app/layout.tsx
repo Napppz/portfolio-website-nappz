@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LoadingScreen } from '@/components/ui/loading-screen'
+import { AnimatedBackground } from '@/components/ui/animated-background'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -62,7 +63,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className="font-sans antialiased text-foreground bg-background dark">
+      <body className="font-sans antialiased text-foreground bg-transparent dark">
+        <AnimatedBackground />
         <LoadingScreen />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
