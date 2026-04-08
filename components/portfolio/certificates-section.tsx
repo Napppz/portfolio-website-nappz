@@ -50,7 +50,7 @@ export function CertificatesSection() {
     },
     {
       id: "4",
-      name: "Sertifikat Workshop",
+      name: "Sertifikat Workshop Data & Machine Learning",
       issuer: "Workshop",
       date: "2024",
       imageUrl: "/Sertifikat/Sertifikat Workshop.pdf",

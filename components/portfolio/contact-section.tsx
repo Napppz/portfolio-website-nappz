@@ -52,12 +52,12 @@ export function ContactSection() {
     {
       icon: Mail,
       label: "Email",
-      value: "email@example.com",
+      value: "email@rizkytyan15@gmail.com",
     },
     {
       icon: Phone,
       label: "Telepon",
-      value: "+62 812 3456 7890",
+      value: "+62 857 7714 9410",
     },
     {
       icon: MapPin,
