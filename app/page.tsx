@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { Navbar } from "@/components/portfolio/navbar";
 import { AboutSection } from "@/components/portfolio/about-section";
+import { ExperienceSection } from "@/components/portfolio/experience-section";
 import { SkillsSection } from "@/components/portfolio/skills-section";
 import { ProjectsSection } from "@/components/portfolio/projects-section";
 import { CertificatesSection } from "@/components/portfolio/certificates-section";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <AboutSection />
+      <ExperienceSection />
       <SkillsSection />
       <ProjectsSection />
       <CertificatesSection />

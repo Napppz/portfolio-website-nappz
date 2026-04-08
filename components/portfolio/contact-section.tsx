@@ -39,13 +39,47 @@ export function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Menggunakan Web3Forms API (Tanpa Backend)
+      const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+      
+      if (!WEB3FORMS_KEY || WEB3FORMS_KEY === "YOUR_ACCESS_KEY_HERE") {
+        alert("Peringatan: API Key Web3Forms belum diatur di file .env.local!");
+        setIsSubmitting(false);
+        return;
+      }
 
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: "Pesan Baru dari Website Portofolio",
+        }),
+      });
 
-    setTimeout(() => setSubmitted(false), 3000);
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        console.error("Gagal mengirim:", result);
+        alert("Oops! Pesan gagal terkirim. " + result.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan koneksi internet.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [

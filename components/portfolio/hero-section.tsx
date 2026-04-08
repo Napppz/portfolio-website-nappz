@@ -7,32 +7,40 @@ import { useState, useEffect } from "react";
 
 export function HeroSection() {
   const [displayText, setDisplayText] = useState("");
-  const fullName = "Rizki Agustianto";
+  const roles = [
+    "Mahasiswa Informatika",
+    "Fullstack Developer",
+    "UI/UX Enthusiast",
+    "AI Researcher"
+  ];
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-    let currentIndex = 0;
+    let currentRoleIndex = 0;
+    let currentCharIndex = 0;
     let isDeleting = false;
 
     const type = () => {
-      setDisplayText(fullName.slice(0, currentIndex));
+      const currentRole = roles[currentRoleIndex];
+      setDisplayText(currentRole.slice(0, currentCharIndex));
 
-      let typeSpeed = 150; // Kecepatan mengetik
+      let typeSpeed = 100; // Normal typing speed
 
       if (!isDeleting) {
-        if (currentIndex < fullName.length) {
-          currentIndex++;
+        if (currentCharIndex < currentRole.length) {
+          currentCharIndex++;
         } else {
           isDeleting = true;
-          typeSpeed = 3000; // Jeda 3 detik sebelum dihapus
+          typeSpeed = 2500; // Wait 2.5s before deleting
         }
       } else {
-        if (currentIndex > 0) {
-          currentIndex--;
-          typeSpeed = 80; // Kecepatan menghapus teks
+        if (currentCharIndex > 0) {
+          currentCharIndex--;
+          typeSpeed = 40; // Fast deletion
         } else {
           isDeleting = false;
-          typeSpeed = 500; // Jeda sebelum mulai mengetik lagi
+          currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+          typeSpeed = 500; // Pause before typing next word
         }
       }
 
@@ -57,12 +65,12 @@ export function HeroSection() {
         {/* Left Side - Info */}
         <div className="space-y-6 text-center lg:text-left">
           <div className="space-y-4 opacity-0 animate-fade-in-left">
-            <p className="font-mono text-2xl md:text-3xl font-bold tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] mb-2 uppercase">
-              MAHASISWA INFORMATIKA
+            <p className="font-mono text-xl md:text-2xl font-bold tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] mb-2 uppercase flex justify-center lg:justify-start items-center min-h-[36px]">
+              <span>{displayText}</span>
+              <span className="w-[3px] h-[24px] bg-[#00f0ff] ml-1 animate-pulse"></span>
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-balance flex justify-center lg:justify-start items-center">
-              <span>{displayText}</span>
-              <span className="w-[3px] h-[40px] md:h-[60px] bg-primary ml-1 animate-pulse"></span>
+              Rizki Agustianto
             </h1>
             <p className="text-xl text-muted-foreground">
               Aspiring Software Developer
