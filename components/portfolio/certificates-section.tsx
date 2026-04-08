@@ -56,6 +56,22 @@ export function CertificatesSection() {
       imageUrl: "/Sertifikat/Sertifikat Workshop.pdf",
       fileType: "application/pdf",
     },
+    {
+      id: "5",
+      name: "Sertifikat CCNA Introduction to Networks",
+      issuer: "Cisco",
+      date: "2024",
+      imageUrl: "/Sertifikat/Sertifikat CCNA Introduction to Networks.pdf",
+      fileType: "application/pdf",
+    },
+    {
+      id: "6",
+      name: "Sertifikat PCAP Programming in Python",
+      issuer: "Python Institute",
+      date: "2024",
+      imageUrl: "/Sertifikat/Sertifikat PCAP - Programming.pdf",
+      fileType: "application/pdf",
+    },
   ];
   const [previewCert, setPreviewCert] = useState<Certificate | null>(null);
 
