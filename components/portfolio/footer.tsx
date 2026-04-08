@@ -7,10 +7,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { href: "https://github.com", icon: Github, label: "GitHub" },
+    { href: "https://github.com/Napppz", icon: Github, label: "GitHub" },
     { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
-    { href: "https://instagram.com", icon: Instagram, label: "Instagram" },
-    { href: "mailto:email@example.com", icon: Mail, label: "Email" },
+    { href: "https://instagram.com/nappzkun/", icon: Instagram, label: "Instagram" },
+    { href: "mailto:rizkytyan1", icon: Mail, label: "Email" },
   ];
 
   return (
