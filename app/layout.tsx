@@ -2,15 +2,39 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LoadingScreen } from '@/components/ui/loading-screen'
-import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Portfolio | Mahasiswa Informatika',
-  description: 'Website portfolio mahasiswa Informatika dengan keahlian Python, Java, JavaScript, HTML, dan CSS',
+  title: 'Rizki Agustianto | Portfolio',
+  description: 'Website portfolio Rizki Agustianto, seorang Mahasiswa Informatika dan Web Developer dengan keahlian Python, Java, JavaScript, HTML, dan CSS.',
+  keywords: ['Rizki Agustianto', 'Portfolio', 'Web Developer', 'Mahasiswa Informatika', 'Python', 'Java', 'Next.js', 'React', 'Frontend Developer'],
+  authors: [{ name: 'Rizki Agustianto' }],
+  creator: 'Rizki Agustianto',
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    url: 'https://v0-portfolio-website.vercel.app/', // Change this to the actual URL if known
+    title: 'Rizki Agustianto | Web Developer Portfolio',
+    description: 'Jelajahi proyek, keahlian, dan sertifikat yang telah diraih oleh Rizki Agustianto.',
+    siteName: 'Portfolio Rizki',
+    images: [
+      {
+        url: '/images/profile.jpg', // Using profile image for sharing preview
+        width: 800,
+        height: 600,
+        alt: 'Rizki Agustianto Profile Image',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rizki Agustianto | Portfolio',
+    description: 'Website portfolio mahasiswa Informatika & Web Developer.',
+    images: ['/images/profile.jpg'],
+  },
   generator: 'v0.app',
   icons: {
     icon: [
@@ -37,18 +61,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="id" suppressHydrationWarning>
-      <body className="font-sans antialiased bg-background text-foreground transition-colors duration-500">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <LoadingScreen />
-          {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
-        </ThemeProvider>
+    <html lang="id">
+      <body className="font-sans antialiased text-foreground bg-background dark">
+        <LoadingScreen />
+        {children}
+        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )

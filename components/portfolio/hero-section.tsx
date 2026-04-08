@@ -78,50 +78,39 @@ export function HeroSection() {
             <span className="text-primary font-medium">Web Development</span>.
           </p>
 
-          {/* Social Links & Resume */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-6 opacity-0 animate-fade-in-left animation-delay-400">
-            <a
-              href="/CV_Rizki_Agustianto.pdf"
+          {/* Social Links */}
+          <div className="flex items-center gap-4 pt-6 opacity-0 animate-fade-in-left animation-delay-400">
+            <Link
+              href="https://github.com/Napppz"
               target="_blank"
-              download
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1"
+              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
+              aria-label="GitHub"
             >
-              Unduh CV
-            </a>
-            
-            <div className="flex justify-center items-center gap-4">
-              <Link
-                href="https://github.com/Napppz"
-                target="_blank"
-                className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://linkedin.com"
-                target="_blank"
-                className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://instagram.com/nappzkun/"
-                target="_blank"
-                className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </Link>
-              <Link
-                href="mailto:rizkytyan15@gmail.com"
-                className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-                aria-label="Email"
-              >
-                <Mail className="w-5 h-5" />
-              </Link>
-            </div>
+              <Github className="w-5 h-5" />
+            </Link>
+            <Link
+              href="https://linkedin.com"
+              target="_blank"
+              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-5 h-5" />
+            </Link>
+            <Link
+              href="https://instagram.com/nappzkun/"
+              target="_blank"
+              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-5 h-5" />
+            </Link>
+            <Link
+              href="mailto:rizkytyan15@gmail.com"
+              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
+              aria-label="Email"
+            >
+              <Mail className="w-5 h-5" />
+            </Link>
           </div>
         </div>
 

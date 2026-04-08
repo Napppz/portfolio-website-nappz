@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ThemeToggle } from "./theme-toggle";
-import { Download } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,48 +36,30 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <nav className="flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-          
-          <div className="flex items-center gap-4 border-l border-border pl-8">
-            <ThemeToggle />
-            <a
-              href="/CV_Rizki_Agustianto.pdf"
-              target="_blank"
-              download
-              className="flex items-center gap-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest"
             >
-              <Download className="w-4 h-4" />
-              <span>Resume</span>
-            </a>
-          </div>
-        </div>
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-        {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center gap-4">
-          <ThemeToggle />
-          <nav className="flex items-center gap-4 overflow-x-auto pb-1 max-w-[40vw]">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors whitespace-nowrap tracking-wide"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
+        {/* Mobile Navigation - Scrollable Row */}
+        <nav className="flex md:hidden items-center gap-4 overflow-x-auto pb-1 max-w-[50vw]">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors whitespace-nowrap tracking-wide"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );
