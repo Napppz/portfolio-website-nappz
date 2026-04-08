@@ -10,17 +10,38 @@ export function HeroSection() {
   const fullName = "Rizki Agustianto";
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
     let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullName.length) {
-        setDisplayText(fullName.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 150); // Kecepatan mengetik dalam ms
+    let isDeleting = false;
 
-    return () => clearInterval(typingInterval);
+    const type = () => {
+      setDisplayText(fullName.slice(0, currentIndex));
+
+      let typeSpeed = 150; // Kecepatan mengetik
+
+      if (!isDeleting) {
+        if (currentIndex < fullName.length) {
+          currentIndex++;
+        } else {
+          isDeleting = true;
+          typeSpeed = 3000; // Jeda 3 detik sebelum dihapus
+        }
+      } else {
+        if (currentIndex > 0) {
+          currentIndex--;
+          typeSpeed = 80; // Kecepatan menghapus teks
+        } else {
+          isDeleting = false;
+          typeSpeed = 500; // Jeda sebelum mulai mengetik lagi
+        }
+      }
+
+      timeout = setTimeout(type, typeSpeed);
+    };
+
+    timeout = setTimeout(type, 150);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
