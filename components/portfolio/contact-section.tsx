@@ -106,15 +106,17 @@ export function ContactSection() {
 
           {/* Contact Form */}
           <form
-            action="https://formsubmit.co/rizkytyan15@gmail.com"
+            action="https://api.web3forms.com/submit"
             method="POST"
             className={`space-y-6 p-6 bg-card border border-border rounded-xl transition-all duration-700 delay-300 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
-            {/* FormSubmit Configurations */}
-            <input type="hidden" name="_subject" value="🌟 Pesan Baru dari Website Portofolio Rizky!" />
-            <input type="hidden" name="_template" value="box" />
+            {/* Web3Forms Access Key - GANTI VALUE INI DENGAN KEY DARI EMAIL ANDA */}
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+            
+            <input type="hidden" name="subject" value="🌟 Pesan Baru dari Website Portofolio Rizky!" />
+            <input type="hidden" name="from_name" value="Notifikasi Portofolio" />
             
             <FieldGroup>
               <Field>
