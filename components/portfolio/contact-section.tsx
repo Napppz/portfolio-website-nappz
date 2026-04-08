@@ -35,48 +35,8 @@ export function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Menggunakan FormSubmit (Sangat mudah, tanpa perlu API Key!)
-      const response = await fetch("https://formsubmit.co/ajax/rizkytyan15@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: "🌟 Pesan Baru dari Website Portofolio Rizky!", // Custom subject email
-          _template: "table",
-        }),
-      });
-
-      const result = await response.json();
-      
-      if (result.success === "true" || result.success === true) {
-        setSubmitted(true);
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setSubmitted(false), 5000);
-      } else {
-        // FormSubmit biasanya mewajibkan aktivasi pada email PERTAMA KALI
-        console.error("Respon FormSubmit:", result);
-        alert(
-          "PENTING: Karena ini percobaan pertama form, silakan buka kotak masuk email (rizkytyan15@gmail.com) sekarang, dan klik tombol 'Activate Form' dari FormSubmit!"
-        );
-        setFormData({ name: "", email: "", message: "" }); // Reset tetap dilakukan
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Terjadi kesalahan koneksi internet.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    };
+  }, []);
 
   const contactInfo = [
     {
@@ -121,7 +81,7 @@ export function ContactSection() {
           <div className="space-y-6">
             <p className={`text-muted-foreground leading-relaxed transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
               Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu
-              untuk menghubungi saya melalui form atau kontak di bawah ini.
+              untuk menghubungi saya melalui form otomatis di bawah ini. Bebas hambatan, langsung ke notifikasi HP saya.
             </p>
 
             <div className="space-y-4">
@@ -147,21 +107,23 @@ export function ContactSection() {
 
           {/* Contact Form */}
           <form
-            onSubmit={handleSubmit}
+            action="https://formsubmit.co/rizkytyan15@gmail.com"
+            method="POST"
             className={`space-y-6 p-6 bg-card border border-border rounded-xl transition-all duration-700 delay-300 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
+            {/* FormSubmit Configurations */}
+            <input type="hidden" name="_subject" value="🌟 Pesan Baru dari Website Portofolio Rizky!" />
+            <input type="hidden" name="_template" value="box" />
+            
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Nama</FieldLabel>
                 <Input
                   id="name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, name: e.target.value }))
-                  }
-                  placeholder="Nama Anda"
+                  name="name"
+                  placeholder="Nama Lengkap Anda"
                   required
                   className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                 />
@@ -171,12 +133,9 @@ export function ContactSection() {
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, email: e.target.value }))
-                  }
-                  placeholder="email@example.com"
+                  placeholder="email.utama@example.com"
                   required
                   className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                 />
@@ -186,11 +145,8 @@ export function ContactSection() {
                 <FieldLabel htmlFor="message">Pesan</FieldLabel>
                 <Textarea
                   id="message"
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, message: e.target.value }))
-                  }
-                  placeholder="Tulis pesan Anda..."
+                  name="message"
+                  placeholder="Ceritakan tujuan Anda / Tawaran proyek..."
                   rows={4}
                   required
                   className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
@@ -201,21 +157,10 @@ export function ContactSection() {
             <Button
               type="submit"
               className="w-full group relative overflow-hidden"
-              disabled={isSubmitting}
             >
-              <span className={`flex items-center justify-center gap-2 transition-transform duration-300 ${submitted ? "-translate-y-10" : ""}`}>
-                {isSubmitting ? (
-                  "Mengirim..."
-                ) : (
-                  <>
-                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    Kirim Pesan
-                  </>
-                )}
-              </span>
-              <span className={`absolute inset-0 flex items-center justify-center gap-2 text-primary-foreground transition-transform duration-300 ${submitted ? "translate-y-0" : "translate-y-10"}`}>
-                <CheckCircle className="w-4 h-4" />
-                Pesan Terkirim!
+              <span className="flex items-center justify-center gap-2">
+                <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Kirim Via FormSubmit
               </span>
             </Button>
           </form>
