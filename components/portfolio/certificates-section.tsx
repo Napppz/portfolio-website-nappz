@@ -42,6 +42,15 @@ export function CertificatesSection() {
     setPanOrigin(`${x}% ${y}%`);
   };
 
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (zoomLevel <= 1) return;
+    const touch = e.touches[0];
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = Math.max(0, Math.min(100, ((touch.clientX - left) / width) * 100));
+    const y = Math.max(0, Math.min(100, ((touch.clientY - top) / height) * 100));
+    setPanOrigin(`${x}% ${y}%`);
+  };
+
   useEffect(() => {
     let url = "";
     if (previewCert && previewCert.fileType === "application/pdf") {
@@ -52,7 +61,7 @@ export function CertificatesSection() {
           // Re-assign MIME type menjadi application/pdf agar browser bisa merendernya
           const pdfBlob = new Blob([rawBlob], { type: "application/pdf" });
           url = URL.createObjectURL(pdfBlob);
-          setBlobUrl(url + "#toolbar=0&navpanes=0");
+          setBlobUrl(url + "#toolbar=0&navpanes=0&view=Fit");
         })
         .catch(console.error);
     }
@@ -242,6 +251,7 @@ export function CertificatesSection() {
               <div 
                 className={`relative flex-1 w-full min-h-0 bg-black/40 rounded-lg overflow-hidden border border-white/10 mt-2 shadow-inner flex items-center justify-center ${zoomLevel > 1 ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
                 onMouseMove={handleMouseMove}
+                onTouchMove={handleTouchMove}
                 onMouseLeave={() => setPanOrigin("center")}
                 onWheel={(e) => {
                   if (e.deltaY < 0) {
