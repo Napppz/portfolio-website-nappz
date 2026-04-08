@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
-import { Upload, X, FileImage, Eye, Download, Award } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { FileImage, Eye, Download, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,19 +23,41 @@ interface Certificate {
 export function CertificatesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [certificates, setCertificates] = useState<Certificate[]>([
+  const certificates: Certificate[] = [
     {
       id: "1",
-      name: "Contoh Sertifikat Python",
-      issuer: "Coursera",
+      name: "Sertifikat Golang",
+      issuer: "Bootcamp",
       date: "2024",
-      imageUrl: "",
-      fileType: "image/jpeg",
+      imageUrl: "/Sertifikat/Sertifikat Golang.pdf",
+      fileType: "application/pdf",
     },
-  ]);
-  const [isUploading, setIsUploading] = useState(false);
+    {
+      id: "2",
+      name: "Sertifikat IT Bootcamp",
+      issuer: "Bootcamp",
+      date: "2024",
+      imageUrl: "/Sertifikat/Sertifikat it bootcamp.pdf",
+      fileType: "application/pdf",
+    },
+    {
+      id: "3",
+      name: "Sertifikat Workshop AI",
+      issuer: "Workshop",
+      date: "2024",
+      imageUrl: "/Sertifikat/Sertifikat Workshop AI.pdf",
+      fileType: "application/pdf",
+    },
+    {
+      id: "4",
+      name: "Sertifikat Workshop",
+      issuer: "Workshop",
+      date: "2024",
+      imageUrl: "/Sertifikat/Sertifikat Workshop.pdf",
+      fileType: "application/pdf",
+    },
+  ];
   const [previewCert, setPreviewCert] = useState<Certificate | null>(null);
-  const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -53,63 +75,6 @@ export function CertificatesSection() {
 
     return () => observer.disconnect();
   }, []);
-
-  const handleDrag = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  }, []);
-
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-
-    const files = e.dataTransfer.files;
-    if (files && files[0]) {
-      handleFile(files[0]);
-    }
-  }, []);
-
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files[0]) {
-      handleFile(files[0]);
-    }
-  };
-
-  const handleFile = (file: File) => {
-    if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
-      alert("Silakan upload file gambar atau PDF");
-      return;
-    }
-
-    setIsUploading(true);
-
-    const imageUrl = URL.createObjectURL(file);
-
-    setTimeout(() => {
-      const newCert: Certificate = {
-        id: Date.now().toString(),
-        name: file.name.replace(/\.[^/.]+$/, ""),
-        issuer: "Issuer",
-        date: new Date().getFullYear().toString(),
-        imageUrl,
-        fileType: file.type,
-      };
-
-      setCertificates((prev) => [...prev, newCert]);
-      setIsUploading(false);
-    }, 1000);
-  };
-
-  const removeCertificate = (id: string) => {
-    setCertificates((prev) => prev.filter((cert) => cert.id !== id));
-  };
 
   return (
     <section
@@ -130,41 +95,6 @@ export function CertificatesSection() {
           </h2>
         </div>
 
-        {/* Upload Area */}
-        <div
-          className={`relative mb-8 p-8 border-2 border-dashed rounded-xl transition-all duration-500 ${
-            dragActive
-              ? "border-primary bg-primary/10 scale-[1.02]"
-              : "border-border hover:border-primary/50 hover:bg-card/50"
-          } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          style={{ transitionDelay: "100ms" }}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-        >
-          <input
-            type="file"
-            accept="image/*,.pdf"
-            onChange={handleFileInput}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            disabled={isUploading}
-          />
-          <div className="flex flex-col items-center gap-4 text-center">
-            <div className={`p-4 bg-primary/10 rounded-full transition-transform duration-300 ${dragActive ? "scale-110" : ""}`}>
-              <Upload className="w-8 h-8 text-primary" />
-            </div>
-            <div>
-              <p className="text-foreground font-medium">
-                {isUploading ? "Mengupload..." : "Drag & drop sertifikat di sini"}
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                atau klik untuk memilih file (PNG, JPG, PDF)
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Certificates Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {certificates.map((cert, index) => (
@@ -175,14 +105,6 @@ export function CertificatesSection() {
               }`}
               style={{ transitionDelay: `${(index + 2) * 100}ms` }}
             >
-              <button
-                onClick={() => removeCertificate(cert.id)}
-                className="absolute top-3 right-3 p-2 rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                aria-label="Hapus sertifikat"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-primary/10 rounded-xl">
                   <Award className="w-6 h-6 text-primary" />
