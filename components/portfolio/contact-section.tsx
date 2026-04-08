@@ -40,39 +40,35 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Menggunakan Web3Forms API (Tanpa Backend)
-      const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-      
-      if (!WEB3FORMS_KEY || WEB3FORMS_KEY === "YOUR_ACCESS_KEY_HERE") {
-        alert("Peringatan: API Key Web3Forms belum diatur di file .env.local!");
-        setIsSubmitting(false);
-        return;
-      }
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // Menggunakan FormSubmit (Sangat mudah, tanpa perlu API Key!)
+      const response = await fetch("https://formsubmit.co/ajax/rizkytyan15@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          subject: "Pesan Baru dari Website Portofolio",
+          _subject: "🌟 Pesan Baru dari Website Portofolio Rizky!", // Custom subject email
+          _template: "table",
         }),
       });
 
       const result = await response.json();
       
-      if (result.success) {
+      if (result.success === "true" || result.success === true) {
         setSubmitted(true);
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        console.error("Gagal mengirim:", result);
-        alert("Oops! Pesan gagal terkirim. " + result.message);
+        // FormSubmit biasanya mewajibkan aktivasi pada email PERTAMA KALI
+        console.error("Respon FormSubmit:", result);
+        alert(
+          "PENTING: Karena ini percobaan pertama form, silakan buka kotak masuk email (rizkytyan15@gmail.com) sekarang, dan klik tombol 'Activate Form' dari FormSubmit!"
+        );
+        setFormData({ name: "", email: "", message: "" }); // Reset tetap dilakukan
       }
     } catch (error) {
       console.error("Error:", error);
