@@ -171,6 +171,19 @@ export function AboutSkillsSection() {
 
     // --- Tools & Network ---
     {
+      name: "MikroTik MTCNA",
+      category: "tools",
+      iconSvg: (
+        <svg viewBox="0 0 24 24" className="w-11 h-11">
+          <rect width="24" height="24" rx="5" fill="#E01E2E" />
+          <path
+            d="M6 16.5V7.5h2.5l3.5 5 3.5-5H18v9h-2v-5.2l-3.3 4.7h-1.4L8 11.3v5.2H6z"
+            fill="#FFFFFF"
+          />
+        </svg>
+      ),
+    },
+    {
       name: "Cisco Network",
       category: "tools",
       iconSvg: (

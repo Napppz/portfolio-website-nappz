@@ -40,6 +40,19 @@ export interface TimelineItem {
 const timelineData: TimelineItem[] = [
   {
     id: "1",
+    year: "2026",
+    icon: "📡",
+    badge: "📡 MTCNA",
+    badgeColor: "from-amber-400 to-orange-600",
+    name: "MikroTik Certified Network Associate (MTCNA)",
+    issuer: "Mikrotikls MTCNA",
+    description:
+      "Tersertifikasi internasional sebagai MikroTik Certified Network Associate (MTCNA). Memvalidasi keahlian mendalam dalam konfigurasi RouterOS, routing, firewall, bandwidth management, wireless, tunnel, dan manajemen jaringan komputer.",
+    image: "/Sertifikat/Sertifikat Mikrotik MTCNA.png",
+    pdfUrl: "/Sertifikat/Sertifikat Mikrotik MTCNA.pdf",
+  },
+  {
+    id: "2",
     year: "2025",
     icon: "🌐",
     badge: "🌐 CCNA",
@@ -52,7 +65,7 @@ const timelineData: TimelineItem[] = [
     pdfUrl: "/Sertifikat/Sertifikat CCNA Introduction to Networks.pdf",
   },
   {
-    id: "2",
+    id: "3",
     year: "2025",
     icon: "📊",
     badge: "📊 Data & ML",
@@ -65,7 +78,7 @@ const timelineData: TimelineItem[] = [
     pdfUrl: "/Sertifikat/Sertifikat Workshop.pdf",
   },
   {
-    id: "3",
+    id: "4",
     year: "2025",
     icon: "💻",
     badge: "💻 IT Bootcamp",
@@ -78,7 +91,7 @@ const timelineData: TimelineItem[] = [
     pdfUrl: "/Sertifikat/Sertifikat it bootcamp.pdf",
   },
   {
-    id: "4",
+    id: "5",
     year: "2024",
     icon: "🐍",
     badge: "🐍 PCAP Python",
@@ -91,7 +104,7 @@ const timelineData: TimelineItem[] = [
     pdfUrl: "/Sertifikat/Sertifikat PCAP - Programming.pdf",
   },
   {
-    id: "5",
+    id: "6",
     year: "2024",
     icon: "🤖",
     badge: "🤖 AI Workshop",
@@ -104,7 +117,7 @@ const timelineData: TimelineItem[] = [
     pdfUrl: "/Sertifikat/Sertifikat Workshop AI.pdf",
   },
   {
-    id: "6",
+    id: "7",
     year: "2023",
     icon: "🐹",
     badge: "🐹 Golang",
@@ -117,7 +130,7 @@ const timelineData: TimelineItem[] = [
     pdfUrl: "/Sertifikat/Sertifikat Golang.pdf",
   },
   {
-    id: "7",
+    id: "8",
     year: "Sekarang",
     icon: "🎓",
     badge: "🎓 S1 Informatika",
@@ -317,11 +330,10 @@ export function TimelineCertificatesSection() {
                 >
                   {/* Polaroid Frame */}
                   <div
-                    className={`bg-white text-slate-900 rounded-2xl p-3 shadow-2xl border transition-all duration-300 ${
-                      isCenter
+                    className={`bg-white text-slate-900 rounded-2xl p-3 shadow-2xl border transition-all duration-300 ${isCenter
                         ? "border-[#00f0ff] shadow-[0_0_35px_rgba(0,240,255,0.3)] ring-2 ring-[#00f0ff]/50"
                         : "border-slate-200/80 shadow-xl"
-                    }`}
+                      }`}
                   >
                     {/* Inner Photo Area */}
                     <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-950 group">
@@ -390,11 +402,10 @@ export function TimelineCertificatesSection() {
                   key={dotIdx}
                   onClick={() => setActiveIndex(dotIdx)}
                   aria-label={`Slide ${dotIdx + 1}`}
-                  className={`transition-all duration-300 rounded-full cursor-pointer ${
-                    dotIdx === activeIndex
+                  className={`transition-all duration-300 rounded-full cursor-pointer ${dotIdx === activeIndex
                       ? "w-7 h-2 bg-[#00f0ff] shadow-[0_0_10px_#00f0ff]"
                       : "w-2 h-2 bg-slate-600 hover:bg-slate-400"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

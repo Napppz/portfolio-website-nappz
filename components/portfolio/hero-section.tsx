@@ -6,32 +6,59 @@ import Link from "next/link";
 import { Linkedin, Github, MessageCircle, Instagram } from "lucide-react";
 
 export function HeroSection() {
-  const [displayText, setDisplayText] = useState("");
+  const phrases = [
+    { prefix: "Hallo, Nama Saya", name: "Rizki Agustianto." },
+    { prefix: "Hello, My Name is", name: "Rizki Agustianto." },
+  ];
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const words = ["Rizki Agustianto.", "Web Developer.", "Fullstack Engineer."];
-  const typingSpeed = isDeleting ? 60 : 120;
+
+  const currentPhrase = phrases[phraseIndex % phrases.length];
+  const fullText = `${currentPhrase.prefix} ${currentPhrase.name}`;
+  const prefixLength = currentPhrase.prefix.length;
 
   useEffect(() => {
-    const handleTyping = () => {
-      const currentWord = words[loopNum % words.length];
-      if (!isDeleting) {
-        setDisplayText(currentWord.substring(0, displayText.length + 1));
-        if (displayText.length + 1 === currentWord.length) {
-          setTimeout(() => setIsDeleting(true), 2500);
-        }
-      } else {
-        setDisplayText(currentWord.substring(0, displayText.length - 1));
-        if (displayText.length === 0) {
-          setIsDeleting(false);
-          setLoopNum((prev) => prev + 1);
-        }
-      }
-    };
+    let timeout: ReturnType<typeof setTimeout>;
 
-    const timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, loopNum, typingSpeed]);
+    if (!isDeleting) {
+      if (charIndex < fullText.length) {
+        timeout = setTimeout(() => {
+          setCharIndex((prev) => prev + 1);
+        }, 85);
+      } else {
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2800);
+      }
+    } else {
+      if (charIndex > 0) {
+        timeout = setTimeout(() => {
+          setCharIndex((prev) => prev - 1);
+        }, 35);
+      } else {
+        // Natural pause before starting next phrase
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setPhraseIndex((prev) => (prev + 1) % phrases.length);
+        }, 350);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, fullText.length, phrases.length]);
+
+  // Compute displayed prefix and name
+  let displayedPrefix = "";
+  let displayedName = "";
+
+  if (charIndex <= prefixLength) {
+    displayedPrefix = fullText.slice(0, charIndex);
+  } else {
+    displayedPrefix = currentPhrase.prefix;
+    displayedName = fullText.slice(prefixLength + 1, charIndex);
+  }
 
   return (
     <section
@@ -57,14 +84,24 @@ export function HeroSection() {
           <div className="absolute -inset-2 rounded-full bg-[#00ffd2]/10 blur-xl -z-10 group-hover:bg-[#00ffd2]/25 transition-all duration-500" />
         </div>
 
-        {/* Heading with Typewriter */}
+        {/* Heading with 2-Line Typewriter (Matching User's Reference) */}
         <div className="space-y-3">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white flex flex-wrap items-center justify-center gap-2">
-            <span>Halo, Saya</span>
-            <span className="text-[#00ffd2] drop-shadow-[0_0_15px_rgba(0,255,210,0.5)]">
-              {displayText}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight flex flex-col items-center justify-center gap-1 sm:gap-2">
+            {/* Line 1: White Greeting Prefix */}
+            <span className="text-white flex items-center justify-center min-h-[1.25em]">
+              <span>{displayedPrefix}</span>
+              {charIndex <= prefixLength && (
+                <span className="inline-block w-[3px] h-7 sm:h-11 md:h-14 bg-[#00ffd2] animate-pulse ml-1" />
+              )}
             </span>
-            <span className="inline-block w-[3px] h-8 sm:h-12 bg-[#00ffd2] animate-pulse ml-0.5" />
+
+            {/* Line 2: Neon Cyan Highlighted Name */}
+            <span className="text-[#00ffd2] drop-shadow-[0_0_15px_rgba(0,255,210,0.5)] flex items-center justify-center min-h-[1.25em]">
+              <span>{displayedName}</span>
+              {charIndex > prefixLength && (
+                <span className="inline-block w-[3px] h-7 sm:h-11 md:h-14 bg-[#00ffd2] animate-pulse ml-1" />
+              )}
+            </span>
           </h1>
 
           {/* Subtitle Bio */}
