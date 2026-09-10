@@ -106,8 +106,8 @@ export function HeroSection() {
 
           {/* Subtitle Bio */}
           <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed px-2 font-normal">
-            Mahasiswa Informatika tingkat akhir di Universitas. Berpengalaman dalam pengembangan Fullstack,
-            Python, Infrastruktur Jaringan, dan sistem Web Modern. Siap memberikan solusi teknologi yang inovatif.
+            Mahasiswa Informatika tingkat akhir di Universitas Bina Sarana Informatika. Berpengalaman dalam pengembangan Fullstack,
+            Python, IoT, dan sistem Web Modern. Siap memberikan solusi teknologi yang inovatif.
           </p>
         </div>
 
