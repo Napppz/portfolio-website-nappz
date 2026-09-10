@@ -1,54 +1,48 @@
 "use client";
 
-import { Github, Linkedin, Instagram, Mail, Heart } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    { href: "https://github.com/Napppz", icon: Github, label: "GitHub" },
-    { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
-    { href: "https://instagram.com/nappzkun/", icon: Instagram, label: "Instagram" },
-    { href: "mailto:rizkytyan1", icon: Mail, label: "Email" },
-  ];
-
   return (
-    <footer className="py-12 px-6 lg:px-12 border-t border-border bg-card/30">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col items-center gap-6">
-          {/* Logo/Name */}
+    <footer className="py-8 px-6 sm:px-12 border-t border-slate-900 bg-[#030712]/95 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        {/* Left Name */}
+        <Link
+          href="#hero"
+          className="text-base sm:text-lg font-bold tracking-widest text-[#00ffd2] hover:text-white transition-colors uppercase drop-shadow-[0_0_8px_rgba(0,255,210,0.4)]"
+        >
+          RIZKI AGUSTIANTO
+        </Link>
+
+        {/* Center Copyright */}
+        <p className="text-xs sm:text-sm text-slate-400 font-normal">
+          &copy; {currentYear} Rizki Agustianto. Designed with Atmospheric Precision.
+        </p>
+
+        {/* Right Links */}
+        <div className="flex items-center gap-6 text-xs sm:text-sm font-medium text-slate-400">
           <Link
-            href="#"
-            className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
+            href="mailto:rizkytyan15@gmail.com"
+            className="hover:text-[#00ffd2] transition-colors"
           >
-            Rizki Agustianto
+            Email
           </Link>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
-            {socialLinks.map((link, index) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                className="p-3 rounded-full bg-secondary text-muted-foreground hover:text-primary hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-                aria-label={link.label}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <link.icon className="w-5 h-5" />
-              </Link>
-            ))}
-          </div>
-
-          {/* Divider */}
-          <div className="w-24 h-px bg-border" />
-
-          {/* Copyright */}
-          <p className="text-sm text-muted-foreground flex items-center gap-1">
-            &copy; {currentYear} Made with{" "}
-            <Heart className="w-4 h-4 text-red-500 animate-pulse" /> by Rizki Agustianto
-          </p>
+          <Link
+            href="https://linkedin.com"
+            target="_blank"
+            className="hover:text-[#00ffd2] transition-colors"
+          >
+            LinkedIn
+          </Link>
+          <Link
+            href="https://github.com/Napppz"
+            target="_blank"
+            className="hover:text-[#00ffd2] transition-colors"
+          >
+            GitHub
+          </Link>
         </div>
       </div>
     </footer>

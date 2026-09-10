@@ -1,147 +1,136 @@
 "use client";
 
-import { Github, Linkedin, Mail, Instagram, ChevronDown } from "lucide-react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Linkedin, Github, MessageCircle, Instagram } from "lucide-react";
 
 export function HeroSection() {
   const [displayText, setDisplayText] = useState("");
-  const fullName = "Rizki Agustianto";
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const words = ["Rizki Agustianto.", "Web Developer.", "Fullstack Engineer."];
+  const typingSpeed = isDeleting ? 60 : 120;
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    let currentIndex = 0;
-    let isDeleting = false;
-
-    const type = () => {
-      setDisplayText(fullName.slice(0, currentIndex));
-
-      let typeSpeed = 150; // Kecepatan mengetik
-
+    const handleTyping = () => {
+      const currentWord = words[loopNum % words.length];
       if (!isDeleting) {
-        if (currentIndex < fullName.length) {
-          currentIndex++;
-        } else {
-          isDeleting = true;
-          typeSpeed = 3000; // Jeda 3 detik sebelum dihapus
+        setDisplayText(currentWord.substring(0, displayText.length + 1));
+        if (displayText.length + 1 === currentWord.length) {
+          setTimeout(() => setIsDeleting(true), 2500);
         }
       } else {
-        if (currentIndex > 0) {
-          currentIndex--;
-          typeSpeed = 80; // Kecepatan menghapus teks
-        } else {
-          isDeleting = false;
-          typeSpeed = 500; // Jeda sebelum mulai mengetik lagi
+        setDisplayText(currentWord.substring(0, displayText.length - 1));
+        if (displayText.length === 0) {
+          setIsDeleting(false);
+          setLoopNum((prev) => prev + 1);
         }
       }
-
-      timeout = setTimeout(type, typeSpeed);
     };
 
-    timeout = setTimeout(type, 150);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 lg:px-12 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float animation-delay-300" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Left Side - Info */}
-        <div className="space-y-6 text-center lg:text-left">
-          <div className="space-y-4 opacity-0 animate-fade-in-left">
-            <p className="font-mono text-2xl md:text-3xl font-bold tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] mb-2 uppercase">
-              MAHASISWA INFORMATIKA
-            </p>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-balance flex justify-center lg:justify-start items-center">
-              <span>{displayText}</span>
-              <span className="w-[3px] h-[40px] md:h-[60px] bg-primary ml-1 animate-pulse"></span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Web Developer
-            </p>
-          </div>
-
-          <p className="text-muted-foreground leading-relaxed max-w-lg opacity-0 animate-fade-in-left animation-delay-200 text-justify">
-            Seorang Mahasiswa Informatika yang berdedikasi secara profesional dalam merancang dan mengembangkan arsitektur perangkat lunak modern. Memiliki spesialisasi di bidang{" "}
-            <span className="text-primary font-medium">Web Development</span> dengan fokus pada rekayasa solusi digital yang skalabel, serta penguasaan kuat terhadap ekosistem pemrograman terapan seperti{" "}
-            <span className="text-primary font-medium">Python</span>,{" "}
-            <span className="text-primary font-medium">Java</span>, dan{" "}
-            <span className="text-primary font-medium">JavaScript</span>.
-          </p>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4 pt-6 opacity-0 animate-fade-in-left animation-delay-400">
-            <Link
-              href="https://github.com/Napppz"
-              target="_blank"
-              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-              aria-label="GitHub"
-            >
-              <Github className="w-5 h-5" />
-            </Link>
-            <Link
-              href="https://linkedin.com"
-              target="_blank"
-              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-5 h-5" />
-            </Link>
-            <Link
-              href="https://instagram.com/nappzkun/"
-              target="_blank"
-              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-              aria-label="Instagram"
-            >
-              <Instagram className="w-5 h-5" />
-            </Link>
-            <Link
-              href="#contact"
-              className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary hover:scale-110 transition-all duration-300"
-              aria-label="Email"
-            >
-              <Mail className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Side - Profile Photo */}
-        <div className="flex justify-center items-center opacity-0 animate-fade-in-right animation-delay-200">
-          <div className="relative">
-            {/* Glowing Ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-xl opacity-50 animate-pulse-glow" />
-            
-            {/* Profile Image Container */}
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/50 animate-pulse-glow">
+    <section
+      id="hero"
+      className="min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 pt-28 pb-16 relative z-10"
+    >
+      <div className="max-w-3xl mx-auto flex flex-col items-center space-y-6 sm:space-y-8">
+        {/* Centered Circular Portrait with Cyan Neon Glow Aura */}
+        <div className="relative group">
+          <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden p-1 bg-gradient-to-b from-[#00ffd2] to-transparent ring-4 ring-[#00ffd2]/50 shadow-[0_0_50px_rgba(0,255,210,0.35)] group-hover:shadow-[0_0_75px_rgba(0,255,210,0.6)] transition-all duration-500">
+            <div className="w-full h-full rounded-full overflow-hidden relative bg-slate-900">
               <Image
                 src="/images/profile.jpg"
-                alt="Foto Profil"
+                alt="Rizki Agustianto"
                 fill
-                className="object-cover"
                 priority
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 176px, 176px"
               />
             </div>
           </div>
+          {/* Subtle spinning glow pulse behind */}
+          <div className="absolute -inset-2 rounded-full bg-[#00ffd2]/10 blur-xl -z-10 group-hover:bg-[#00ffd2]/25 transition-all duration-500" />
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-up animation-delay-600">
-        <Link
-          href="#projects"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-        >
-          <span className="text-xs font-medium tracking-wider">SCROLL</span>
-          <ChevronDown className="w-5 h-5 animate-bounce" />
-        </Link>
+        {/* Heading with Typewriter */}
+        <div className="space-y-3">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white flex flex-wrap items-center justify-center gap-2">
+            <span>Halo, Saya</span>
+            <span className="text-[#00ffd2] drop-shadow-[0_0_15px_rgba(0,255,210,0.5)]">
+              {displayText}
+            </span>
+            <span className="inline-block w-[3px] h-8 sm:h-12 bg-[#00ffd2] animate-pulse ml-0.5" />
+          </h1>
+
+          {/* Subtitle Bio */}
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed px-2 font-normal">
+            Mahasiswa Informatika tingkat akhir di Universitas. Berpengalaman dalam pengembangan Fullstack,
+            Python, Infrastruktur Jaringan, dan sistem Web Modern. Siap memberikan solusi teknologi yang inovatif.
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <Link
+            href="#projects"
+            className="px-8 py-3.5 rounded-full bg-[#00ffd2] text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(0,255,210,0.45)] hover:shadow-[0_0_35px_rgba(0,255,210,0.7)] hover:scale-105 hover:bg-[#33ffdc] transition-all duration-300"
+          >
+            Lihat Portofolio
+          </Link>
+          <Link
+            href="https://wa.me/6285777149410"
+            target="_blank"
+            className="px-8 py-3.5 rounded-full bg-transparent border border-[#00ffd2] text-[#00ffd2] font-semibold text-xs sm:text-sm tracking-wider uppercase hover:bg-[#00ffd2]/10 hover:shadow-[0_0_25px_rgba(0,255,210,0.25)] hover:scale-105 transition-all duration-300"
+          >
+            Hubungi Saya
+          </Link>
+        </div>
+
+        {/* Social Media Pills */}
+        <div className="flex flex-col items-center gap-3 pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+            <Link
+              href="https://www.linkedin.com"
+              target="_blank"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-[#00ffd2] hover:border-[#00ffd2]/50 hover:bg-slate-800/90 text-xs sm:text-sm transition-all duration-300 shadow-sm"
+            >
+              <Linkedin className="w-4 h-4 text-[#00ffd2]" />
+              <span>Rizki Agustianto</span>
+            </Link>
+
+            <Link
+              href="https://github.com/Napppz"
+              target="_blank"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-[#00ffd2] hover:border-[#00ffd2]/50 hover:bg-slate-800/90 text-xs sm:text-sm transition-all duration-300 shadow-sm"
+            >
+              <Github className="w-4 h-4 text-white" />
+              <span>@Napppz</span>
+            </Link>
+
+            <Link
+              href="https://wa.me/6285777149410"
+              target="_blank"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-[#00ffd2] hover:border-[#00ffd2]/50 hover:bg-slate-800/90 text-xs sm:text-sm transition-all duration-300 shadow-sm"
+            >
+              <MessageCircle className="w-4 h-4 text-[#25D366]" />
+              <span>WhatsApp</span>
+            </Link>
+          </div>
+
+          <Link
+            href="https://instagram.com/nappzkun/"
+            target="_blank"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-[#00ffd2] hover:border-[#00ffd2]/50 hover:bg-slate-800/90 text-xs sm:text-sm transition-all duration-300 shadow-sm"
+          >
+            <Instagram className="w-4 h-4 text-[#E4405F]" />
+            <span>@nappzkun</span>
+          </Link>
+        </div>
       </div>
     </section>
   );
