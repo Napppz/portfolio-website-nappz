@@ -15,9 +15,9 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
+    { name: "PROYEK", href: "#projects" },
     { name: "TENTANG", href: "#about" },
     { name: "KEAHLIAN", href: "#skills" },
-    { name: "PROYEK", href: "#projects" },
     { name: "SERTIFIKAT", href: "#certificates" },
     { name: "KONTAK", href: "#contact" },
   ];

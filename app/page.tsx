@@ -13,10 +13,10 @@ export default function Home() {
     <main className="min-h-screen bg-transparent">
       <Navbar />
       <HeroSection />
+      <ProjectsSection />
       <AboutSection />
       <ExperienceSection />
       <SkillsSection />
-      <ProjectsSection />
       <CertificatesSection />
       <ContactSection />
       <Footer />

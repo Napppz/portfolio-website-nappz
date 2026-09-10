@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Orbitron } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LoadingScreen } from '@/components/ui/loading-screen'
 import { AnimatedBackground } from '@/components/ui/animated-background'
@@ -7,6 +7,11 @@ import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  variable: "--font-orbitron",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: 'Rizki Agustianto | Portfolio',
@@ -63,7 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className="font-sans antialiased text-foreground bg-transparent dark">
+      <body className={`font-sans antialiased text-foreground bg-transparent dark ${orbitron.variable}`}>
         <AnimatedBackground />
         <LoadingScreen />
         {children}

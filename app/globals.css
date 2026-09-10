@@ -98,6 +98,10 @@
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-orbitron: var(--font-orbitron), 'Geist Mono', monospace;
+  --color-neon-cyan: #00f0ff;
+  --color-neon-green: #00ff88;
+  --color-neon-pink: #ff007f;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

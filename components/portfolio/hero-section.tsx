@@ -136,7 +136,7 @@ export function HeroSection() {
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-up animation-delay-600">
         <Link
-          href="#about"
+          href="#projects"
           className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
         >
           <span className="text-xs font-medium tracking-wider">SCROLL</span>
