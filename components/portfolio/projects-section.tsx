@@ -16,6 +16,16 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "QR Resto Order — Scan QR Food Ordering System",
+    year: "2026",
+    description:
+      "Website pemesanan makanan dan minuman berbasis scan QR per meja secara real-time. Dilengkapi fitur checkout pelanggan, integrasi pembayaran online (Midtrans) & kasir, manajemen meja & QR code, serta dashboard kasir operasional lengkap.",
+    tech: ["NEXT.JS", "REACT", "TAILWIND CSS", "PRISMA", "MIDTRANS", "SQLITE"],
+    github: "https://github.com/Napppz/Website-Order-Makanan-Berbasis-Scan-QR",
+    demo: "https://website-order-makanan-berbasis-scan.vercel.app/",
+    image: "/images/qr-resto-order.png",
+  },
+  {
     title: "Aika Sesilia — Official Merch Store",
     year: "2025",
     description:
