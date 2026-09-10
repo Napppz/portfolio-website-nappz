@@ -19,8 +19,7 @@ interface Meteor {
   angle: number; // in radians
   alpha: number;
   width: number;
-  active: boolean;
-  delay: number;
+  headGlowSize: number;
 }
 
 export function AnimatedBackground() {
@@ -41,101 +40,153 @@ export function AnimatedBackground() {
     let animationFrameId: number;
     let stars: Star[] = [];
     let meteors: Meteor[] = [];
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initElements();
+    // Fixed realistic falling angle: from top-right to bottom-left (~138 degrees)
+    // cos(138°) < 0 (moves left), sin(138°) > 0 (moves down)
+    const baseAngle = (138 * Math.PI) / 180;
+
+    const createMeteor = (randomInitialPos = false): Meteor => {
+      // Layering: 3 tiers of meteors for atmospheric depth
+      const tier = Math.random();
+      let speed: number;
+      let length: number;
+      let widthRatio: number;
+      let alpha: number;
+
+      if (tier < 0.35) {
+        // Distant, subtle meteors
+        speed = Math.random() * 5 + 7;
+        length = Math.random() * 50 + 60;
+        widthRatio = Math.random() * 0.4 + 0.9;
+        alpha = Math.random() * 0.25 + 0.35;
+      } else if (tier < 0.8) {
+        // Mid-distance meteors
+        speed = Math.random() * 7 + 11;
+        length = Math.random() * 70 + 110;
+        widthRatio = Math.random() * 0.5 + 1.3;
+        alpha = Math.random() * 0.3 + 0.6;
+      } else {
+        // Foreground, blazing shooting stars
+        speed = Math.random() * 9 + 17;
+        length = Math.random() * 100 + 180;
+        widthRatio = Math.random() * 0.8 + 1.8;
+        alpha = Math.random() * 0.2 + 0.8;
+      }
+
+      // Angle slight variation
+      const angle = baseAngle + (Math.random() * 0.08 - 0.04);
+
+      let x: number;
+      let y: number;
+
+      if (randomInitialPos) {
+        // Pre-populate across the entire visible canvas so screen is alive instantly
+        x = Math.random() * (width + 400) - 100;
+        y = Math.random() * (height + 200) - 100;
+      } else {
+        // Spawn from top edge or right edge
+        if (Math.random() < 0.65) {
+          // Spawn along top edge extending past right side
+          x = Math.random() * (width + 500) - 100;
+          y = -Math.random() * 120 - 40;
+        } else {
+          // Spawn along right edge
+          x = width + Math.random() * 180 + 30;
+          y = Math.random() * (height * 0.8);
+        }
+      }
+
+      return {
+        x,
+        y,
+        length,
+        speed,
+        angle,
+        alpha,
+        width: widthRatio,
+        headGlowSize: widthRatio * 3.6,
+      };
     };
 
     const initElements = () => {
-      // 1. Initialize twinkling stars
+      // 1. Twinkling Background Stars
       stars = [];
-      const starCount = Math.min(Math.floor(window.innerWidth / 10), 120);
+      const starCount = Math.min(Math.floor(width / 12), 110);
       for (let i = 0; i < starCount; i++) {
         stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 1.6 + 0.6,
-          baseAlpha: Math.random() * 0.5 + 0.2,
-          twinkleSpeed: Math.random() * 0.03 + 0.01,
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 1.5 + 0.5,
+          baseAlpha: Math.random() * 0.5 + 0.15,
+          twinkleSpeed: Math.random() * 0.025 + 0.008,
           twinkleOffset: Math.random() * Math.PI * 2,
         });
       }
 
-      // 2. Initialize shooting stars / meteors (falling towards bottom-left at ~45 deg)
+      // 2. Falling Meteors (25 - 32 meteors for vivid continuous shower like arifgiovanni.my.id)
       meteors = [];
-      const meteorCount = 5;
+      const meteorCount = Math.max(16, Math.min(Math.floor(width / 50), 28));
       for (let i = 0; i < meteorCount; i++) {
-        meteors.push(createMeteor(true, i * 60));
+        meteors.push(createMeteor(true));
       }
     };
 
-    const createMeteor = (initial = false, extraDelay = 0): Meteor => {
-      // Angle: around 215 to 225 degrees (falling from top-right to bottom-left)
-      const angle = (220 * Math.PI) / 180;
-      return {
-        x: Math.random() * (canvas.width + 400),
-        y: initial ? Math.random() * canvas.height * 0.6 : -100,
-        length: Math.random() * 120 + 90,
-        speed: Math.random() * 10 + 12,
-        angle: angle,
-        alpha: Math.random() * 0.5 + 0.5,
-        width: Math.random() * 1.5 + 1.2,
-        active: initial,
-        delay: initial ? extraDelay : Math.floor(Math.random() * 180 + 30),
-      };
+    const resizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.resetTransform?.();
+      ctx.scale(dpr, dpr);
+      initElements();
     };
 
     let tick = 0;
 
     const render = () => {
       tick++;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, width, height);
 
-      // --- Draw Twinkling Stars ---
+      // --- Draw Twinkling Ambient Stars ---
       for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
         const currentAlpha =
-          star.baseAlpha + Math.sin(tick * star.twinkleSpeed + star.twinkleOffset) * 0.25;
-        const clampedAlpha = Math.max(0.1, Math.min(1, currentAlpha));
+          star.baseAlpha + Math.sin(tick * star.twinkleSpeed + star.twinkleOffset) * 0.3;
+        const clampedAlpha = Math.max(0.08, Math.min(0.9, currentAlpha));
 
-        ctx.fillStyle = `rgba(200, 240, 255, ${clampedAlpha})`;
+        ctx.fillStyle = `rgba(195, 245, 255, ${clampedAlpha})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // --- Draw Meteors / Shooting Stars ---
+      // --- Draw Realistic Falling Meteors ---
       for (let i = 0; i < meteors.length; i++) {
         const m = meteors[i];
 
-        if (!m.active) {
-          if (m.delay > 0) {
-            m.delay--;
-          } else {
-            m.active = true;
-          }
-          continue;
-        }
-
-        // Calculate meteor head position
         const cos = Math.cos(m.angle);
         const sin = Math.sin(m.angle);
 
+        // Advance meteor head down and left
         m.x += cos * m.speed;
         m.y += sin * m.speed;
 
-        // Tail starts from head backwards
+        // Tail starts from head backwards (up and right)
         const tailX = m.x - cos * m.length;
         const tailY = m.y - sin * m.length;
 
-        // Gradient for meteor tail: cyan glowing head fading to transparent
+        // Tail Gradient: Transparent -> Cyan -> White Glow at head
         const gradient = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
         gradient.addColorStop(0, "rgba(0, 255, 210, 0)");
-        gradient.addColorStop(0.6, "rgba(0, 230, 255, 0.4)");
-        gradient.addColorStop(1, `rgba(180, 255, 245, ${m.alpha})`);
+        gradient.addColorStop(0.4, `rgba(0, 184, 255, ${m.alpha * 0.25})`);
+        gradient.addColorStop(0.75, `rgba(0, 255, 210, ${m.alpha * 0.7})`);
+        gradient.addColorStop(1, `rgba(255, 255, 255, ${m.alpha * 0.95})`);
 
+        // Draw meteor luminous tail
+        ctx.save();
         ctx.strokeStyle = gradient;
         ctx.lineWidth = m.width;
         ctx.lineCap = "round";
@@ -144,14 +195,34 @@ export function AnimatedBackground() {
         ctx.lineTo(m.x, m.y);
         ctx.stroke();
 
-        // Small glowing head star
-        ctx.fillStyle = `rgba(255, 255, 255, ${m.alpha})`;
+        // Draw soft glowing corona at the meteor head
+        const headGlow = ctx.createRadialGradient(
+          m.x,
+          m.y,
+          0,
+          m.x,
+          m.y,
+          m.headGlowSize
+        );
+        headGlow.addColorStop(0, `rgba(255, 255, 255, ${m.alpha})`);
+        headGlow.addColorStop(0.35, `rgba(0, 255, 210, ${m.alpha * 0.75})`);
+        headGlow.addColorStop(0.7, `rgba(0, 184, 255, ${m.alpha * 0.3})`);
+        headGlow.addColorStop(1, "rgba(0, 255, 210, 0)");
+
+        ctx.fillStyle = headGlow;
         ctx.beginPath();
-        ctx.arc(m.x, m.y, m.width * 1.1, 0, Math.PI * 2);
+        ctx.arc(m.x, m.y, m.headGlowSize, 0, Math.PI * 2);
         ctx.fill();
 
-        // Reset if off-screen
-        if (m.x < -200 || m.y > canvas.height + 200) {
+        // Sharp bright white hot core at the very tip
+        ctx.fillStyle = `rgba(255, 255, 255, ${m.alpha})`;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, Math.max(0.8, m.width * 0.8), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Respawn when the entire tail has moved off-screen past the bottom or left
+        if (tailX < -150 || tailY > height + 150) {
           meteors[i] = createMeteor(false);
         }
       }
@@ -173,18 +244,22 @@ export function AnimatedBackground() {
 
   return (
     <>
-      <div className="fixed inset-0 -z-50 h-[100vh] w-[100vw] overflow-hidden pointer-events-none bg-[#030712]">
-        {/* Deep cosmic gradient */}
+      <div className="fixed inset-0 z-0 h-full w-full overflow-hidden pointer-events-none bg-[#020813]">
+        {/* Deep cosmic gradient background matching arifgiovanni */}
         <div
           className="absolute inset-0 z-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 240, 255, 0.08) 0%, transparent 70%), radial-gradient(ellipse 70% 50% at 90% 90%, rgba(0, 160, 255, 0.05) 0%, transparent 60%), #030712",
+              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 240, 255, 0.08) 0%, transparent 70%), radial-gradient(ellipse 70% 50% at 90% 90%, rgba(0, 160, 255, 0.05) 0%, transparent 60%), #020813",
           }}
         />
 
-        {/* Canvas for Shooting Stars & Twinkling Stars */}
-        <canvas ref={canvasRef} className="absolute inset-0 z-0" />
+        {/* High performance Canvas with screen blend mode */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full pointer-events-none z-0"
+          style={{ mixBlendMode: "screen" }}
+        />
 
         {/* Ambient atmospheric cyan glow orbs */}
         <div className="absolute top-1/4 left-1/4 h-[35vw] w-[35vw] rounded-full bg-[#00ffd2]/5 blur-[120px] pointer-events-none" />
@@ -202,7 +277,12 @@ export function AnimatedBackground() {
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2.5}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </div>
     </>
