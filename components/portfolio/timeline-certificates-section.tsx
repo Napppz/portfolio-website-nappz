@@ -45,7 +45,7 @@ const timelineData: TimelineItem[] = [
     badge: "📡 MTCNA",
     badgeColor: "from-amber-400 to-orange-600",
     name: "MikroTik Certified Network Associate (MTCNA)",
-    issuer: "Mikrotikls MTCNA",
+    issuer: "Mikrotik MTCNA",
     description:
       "Tersertifikasi internasional sebagai MikroTik Certified Network Associate (MTCNA). Memvalidasi keahlian mendalam dalam konfigurasi RouterOS, routing, firewall, bandwidth management, wireless, tunnel, dan manajemen jaringan komputer.",
     image: "/Sertifikat/Sertifikat Mikrotik MTCNA.png",
@@ -331,8 +331,8 @@ export function TimelineCertificatesSection() {
                   {/* Polaroid Frame */}
                   <div
                     className={`bg-white text-slate-900 rounded-2xl p-3 shadow-2xl border transition-all duration-300 ${isCenter
-                        ? "border-[#00f0ff] shadow-[0_0_35px_rgba(0,240,255,0.3)] ring-2 ring-[#00f0ff]/50"
-                        : "border-slate-200/80 shadow-xl"
+                      ? "border-[#00f0ff] shadow-[0_0_35px_rgba(0,240,255,0.3)] ring-2 ring-[#00f0ff]/50"
+                      : "border-slate-200/80 shadow-xl"
                       }`}
                   >
                     {/* Inner Photo Area */}
@@ -403,8 +403,8 @@ export function TimelineCertificatesSection() {
                   onClick={() => setActiveIndex(dotIdx)}
                   aria-label={`Slide ${dotIdx + 1}`}
                   className={`transition-all duration-300 rounded-full cursor-pointer ${dotIdx === activeIndex
-                      ? "w-7 h-2 bg-[#00f0ff] shadow-[0_0_10px_#00f0ff]"
-                      : "w-2 h-2 bg-slate-600 hover:bg-slate-400"
+                    ? "w-7 h-2 bg-[#00f0ff] shadow-[0_0_10px_#00f0ff]"
+                    : "w-2 h-2 bg-slate-600 hover:bg-slate-400"
                     }`}
                 />
               ))}
