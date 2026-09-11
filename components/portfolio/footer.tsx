@@ -24,7 +24,7 @@ export function Footer() {
         {/* Right Links */}
         <div className="flex items-center gap-6 text-xs sm:text-sm font-medium text-slate-400">
           <Link
-            href="mailto:rizkytyan15@gmail.com"
+            href="mailto:rizkytyan17@gmail.com"
             className="hover:text-[#00ffd2] transition-colors"
           >
             Email

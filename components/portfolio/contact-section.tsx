@@ -41,7 +41,7 @@ export function ContactSection() {
     {
       icon: Mail,
       label: "Email",
-      value: "@rizkytyan15@gmail.com",
+      value: "rizkytyan17@gmail.com",
     },
     {
       icon: Phone,
@@ -136,7 +136,7 @@ export function ContactSection() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="email.utama@example.com"
+                  placeholder="rizkytyan17@gmail.com"
                   required
                   className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                 />
