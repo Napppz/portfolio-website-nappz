@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Download } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -124,8 +124,20 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right Audio Toggle Button */}
-        <div className="shrink-0">
+        {/* Right Action: CV Download & Audio Toggle */}
+        <div className="shrink-0 flex items-center gap-2.5 sm:gap-3">
+          <a
+            href="/CV_Rizki_Agustinto.pdf"
+            download="CV - Rizki Agustinto.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Unduh CV (PDF)"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#00ffd2]/40 bg-[#00ffd2]/10 text-[#00ffd2] hover:bg-[#00ffd2] hover:text-slate-950 font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-[0_0_12px_rgba(0,255,210,0.2)] hover:scale-105"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>CV</span>
+          </a>
+
           <button
             onClick={toggleSound}
             aria-label="Toggle ambient sound"

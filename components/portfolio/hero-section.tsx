@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Linkedin, Github, MessageCircle, Instagram } from "lucide-react";
+import { Linkedin, Github, MessageCircle, Instagram, Download, FileText } from "lucide-react";
 
 export function HeroSection() {
   const phrases = [
@@ -112,17 +112,29 @@ export function HeroSection() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2">
           <Link
             href="#projects"
-            className="px-8 py-3.5 rounded-full bg-[#00ffd2] text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(0,255,210,0.45)] hover:shadow-[0_0_35px_rgba(0,255,210,0.7)] hover:scale-105 hover:bg-[#33ffdc] transition-all duration-300"
+            className="px-7 sm:px-8 py-3.5 rounded-full bg-[#00ffd2] text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(0,255,210,0.45)] hover:shadow-[0_0_35px_rgba(0,255,210,0.7)] hover:scale-105 hover:bg-[#33ffdc] transition-all duration-300"
           >
             Lihat Portofolio
           </Link>
+
+          <a
+            href="/CV_Rizki_Agustinto.pdf"
+            download="CV - Rizki Agustinto.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 sm:px-7 py-3.5 rounded-full bg-[#0a1120]/90 border border-[#00ffd2]/70 text-[#00ffd2] hover:bg-[#00ffd2] hover:text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_20px_rgba(0,255,210,0.2)] hover:shadow-[0_0_30px_rgba(0,255,210,0.6)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 group"
+          >
+            <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+            <span>Unduh CV</span>
+          </a>
+
           <Link
             href="https://wa.me/6285777149410"
             target="_blank"
-            className="px-8 py-3.5 rounded-full bg-transparent border border-[#00ffd2] text-[#00ffd2] font-semibold text-xs sm:text-sm tracking-wider uppercase hover:bg-[#00ffd2]/10 hover:shadow-[0_0_25px_rgba(0,255,210,0.25)] hover:scale-105 transition-all duration-300"
+            className="px-6 sm:px-7 py-3.5 rounded-full bg-transparent border border-slate-700 text-slate-300 font-semibold text-xs sm:text-sm tracking-wider uppercase hover:border-[#00ffd2] hover:text-white hover:bg-[#00ffd2]/10 hover:shadow-[0_0_25px_rgba(0,255,210,0.25)] hover:scale-105 transition-all duration-300"
           >
             Hubungi Saya
           </Link>
