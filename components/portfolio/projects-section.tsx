@@ -16,6 +16,16 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Web Gaji Karyawan — Employee Payroll & Attendance System",
+    year: "2026",
+    description:
+      "Platform komprehensif manajemen penggajian dan rekapitulasi kehadiran karyawan secara real-time. Dilengkapi dashboard analitik keuangan (gaji bersih & PPh 21), pelacakan absensi otomatis, persetujuan izin/cuti, serta manajemen data karyawan terintegrasi.",
+    tech: ["NEXT.JS", "REACT", "TAILWIND CSS", "TYPESCRIPT", "ANALYTICS", "PAYROLL SYSTEM"],
+    github: "https://github.com/Napppz/Web-Gaji-Karyawan",
+    demo: "https://web-gaji-karyawan.vercel.app/",
+    image: "/images/web-gaji-karyawan.png",
+  },
+  {
     title: "QR Resto Order — Scan QR Food Ordering System",
     year: "2026",
     description:
