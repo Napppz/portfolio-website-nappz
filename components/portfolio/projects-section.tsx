@@ -33,6 +33,16 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Klasifikasi Kesegaran Buah dengan AI",
+    year: "2026",
+    description:
+      "Aplikasi kecerdasan buatan (FruitFresh AI) berbasis Deep Learning Convolutional Neural Network (CNN) dengan arsitektur MobileNetV2 untuk mengidentifikasi dan mengklasifikasikan kesegaran serta jenis buah secara real-time dengan akurasi 97.4% dan latensi di bawah 50ms.",
+    tech: ["PYTHON", "TENSORFLOW", "MOBILENETV2", "DEEP LEARNING", "CNN", "COMPUTER VISION"],
+    github: "https://github.com/Napppz/Machine-Learning-Klasifikasi-Buah",
+    demo: "https://machine-learning-klasifikasi-buah.vercel.app/",
+    image: "/images/fruitfresh-ai.png",
+  },
+  {
     title: "Web Gaji Karyawan — Employee Payroll & Attendance System",
     year: "2026",
     description:
